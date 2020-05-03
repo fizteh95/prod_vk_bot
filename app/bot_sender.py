@@ -6,16 +6,17 @@
 import telebot
 from time import sleep
 from telebot import types
-from telebot import apihelper
+# from telebot import apihelper
 
 
 class TelegramSend:
 
     def __init__(self, bot_token, tg_channel):
         self.API_TOKEN = bot_token
-        PROXY_URL = 'http://80.187.140.26:8080'
-        apihelper.proxy = {# 'http': PROXY_URL, 
-                           'https': 'socks5://195.201.137.246:1080'}
+        # PROXY_URL = 'http://46.4.96.87:80'
+        # apihelper.proxy = {'http': PROXY_URL, 
+        #                    # 'https': 'socks5://195.201.137.246:1080'
+        #                    }
         # self.bot = Bot(token=self.API_TOKEN, proxy=PROXY_URL)
         self.bot = telebot.TeleBot(self.API_TOKEN)
         # , parse_mode=types.ParseMode.HTML

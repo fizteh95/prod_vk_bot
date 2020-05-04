@@ -49,9 +49,14 @@ def main_func():
         a = VkPublic(address='overhear',
                      bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
                      tg_channel='@vk_podslushano')
+        b = VkPublic(address='mayland',
+                     bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+                     tg_channel='@vk_podslushano')
+        db.session.add(b)
         db.session.add(a)
         db.session.commit()
         make_things_with_public(a)
+        make_things_with_public(b)
 
     # im, an = parcer()
     # try:

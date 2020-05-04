@@ -62,7 +62,7 @@ class Post:
             self.date = str(datetime.datetime.utcfromtimestamp(
                 int(input_json['date'])))
         except:
-            self.date = datetime.datetime.fromisoformat(input_json['date'])
+            self.date = input_json['date']
         if input_json.get('text'):
             self.text = input_json['text']
         if input_json.get('marked_as_ads'):

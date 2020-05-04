@@ -33,7 +33,16 @@ def make_things_with_public(vk_pub):
 
 def main_func():
     vk_publics = VkPublic.query.all()
-    if len(vk_publics) > 0:
+    if len(vk_publics) > 1:
+        for vk_public in vk_publics:
+            make_things_with_public(vk_public)
+    elif len(vk_publics) == 1:
+        b = VkPublic(address='mayland',
+                     bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+                     tg_channel='@vk_podslushano')
+        db.session.add(b)
+        db.session.commit()
+        vk_publics = VkPublic.query.all()
         for vk_public in vk_publics:
             make_things_with_public(vk_public)
     else:

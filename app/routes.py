@@ -147,14 +147,14 @@ def healthcheck():
     return 'Health check completed successful.'
 
 
-# @app.route('/test', methods=['GET', 'POST'])
-# def test():
-#     print('Test is start...')
-#     data = SaveData.query.first()
-#     data = json.loads(data.data)
-#     print(f'Database content: {data}')
-#     main_func()
-#     return 'Test completed successful.'
+@app.route('/', methods=['GET', 'POST'])
+def test():
+    # print('Test is start...')
+    # data = SaveData.query.first()
+    # data = json.loads(data.data)
+    # print(f'Database content: {data}')
+    # main_func()
+    return 'Test completed successful.'
 
 
 # main_func()

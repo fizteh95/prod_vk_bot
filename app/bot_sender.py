@@ -52,12 +52,12 @@ class TelegramSend:
 
 
                 if post.text:
-                    media.append(telegram.InputMediaPhoto(media=post.photo[0], caption=post.text))
+                    media.append(dict(type='photo', media=post.photo[0], caption=post.text))
                 else:
-                    media.append(telegram.InputMediaPhoto(media=post.photo[0]))
+                    media.append(dict(type='photo', media=post.photo[0]))
 
                 for i in range(1, len(post.photo)):
-                    media.append(telegram.InputMediaPhoto(media=post.photo[i]))
+                    media.append(dict(type='photo', media=post.photo[i]))
 
 
                 bot_message = bot.sendMediaGroup(self.tg_channel, media)

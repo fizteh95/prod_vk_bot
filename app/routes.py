@@ -46,16 +46,16 @@ def main_func():
         for vk_public in vk_publics:
             make_things_with_public(vk_public)
     else:
-        a = VkPublic(address='overhear',
-                     bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
-                     tg_channel='@vk_podslushano')
+        # a = VkPublic(address='overhear',
+        #              bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+        #              tg_channel='@vk_podslushano')
         b = VkPublic(address='mayland',
                      bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
                      tg_channel='@vk_podslushano')
         db.session.add(b)
-        db.session.add(a)
+        # db.session.add(a)
         db.session.commit()
-        make_things_with_public(a)
+        # make_things_with_public(a)
         make_things_with_public(b)
 
     # im, an = parcer()

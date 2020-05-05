@@ -64,7 +64,7 @@ class TelegramSend:
 
 
                 # bot_message = bot.sendMediaGroup(self.tg_channel, media)
-                sleep(2)
+                sleep(10)
 
             if len(post.photo) == 1:
                 if post.text:

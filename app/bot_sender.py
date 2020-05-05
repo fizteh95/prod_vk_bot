@@ -35,33 +35,36 @@ class TelegramSend:
 
             if (len(post.photo) > 1) and (len(post.photo) < 10):
 
-                # medias = []
-
-                # if post.text:
-                #     medias.append(types.InputMediaPhoto(post.photo[0], post.text))
-                # else:
-                #     medias.append(types.InputMediaPhoto(post.photo[0]))
-
-                # for i in range(1, len(post.photo)):
-                #     medias.append(types.InputMediaPhoto(post.photo[i]))
-
-                # self.bot.send_media_group(self.tg_channel, medias)
-                # sleep(.05)  # 20 messages per second
-                bot = telegram.Bot(token=self.API_TOKEN)
-                media = []
-
+                medias = []
 
                 if post.text:
-                    media.append(dict(type='photo', media=post.photo[0], caption=post.text))
+                    medias.append(types.InputMediaPhoto(post.photo[0], post.text))
                 else:
-                    media.append(dict(type='photo', media=post.photo[0]))
+                    medias.append(types.InputMediaPhoto(post.photo[0]))
 
                 for i in range(1, len(post.photo)):
-                    media.append(dict(type='photo', media=post.photo[i]))
+                    medias.append(types.InputMediaPhoto(post.photo[i]))
+
+                try:
+                    self.bot.send_media_group(self.tg_channel, medias)
+                except Exception as e:
+                    print(e)
+                sleep(.05)  # 20 messages per second
+                # bot = telegram.Bot(token=self.API_TOKEN)
+                # media = []
 
 
-                bot_message = bot.sendMediaGroup(self.tg_channel, media)
-                sleep(.08)
+                # if post.text:
+                #     media.append(dict(type='photo', media=post.photo[0], caption=post.text))
+                # else:
+                #     media.append(dict(type='photo', media=post.photo[0]))
+
+                # for i in range(1, len(post.photo)):
+                #     media.append(dict(type='photo', media=post.photo[i]))
+
+
+                # bot_message = bot.sendMediaGroup(self.tg_channel, media)
+                sleep(2)
 
             if len(post.photo) == 1:
                 if post.text:

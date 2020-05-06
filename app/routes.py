@@ -9,6 +9,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 from app.parcer import VK_public, Api, Post as PostClass
 from app.bot_sender import TelegramSend
+import json
 
 
 def send_process():
@@ -18,7 +19,8 @@ def send_process():
         internal_post = Post.query\
                             .filter_by(internal_id=task_post.post_id)\
                             .first()
-        internal_post = PostClass(internal_post.data_json)
+        parsed_json = json.loads(internal_post.data_json)
+        internal_post = PostClass(parsed_json)
         success = False
         while not success:
             try:

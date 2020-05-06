@@ -157,7 +157,7 @@ class VK_public:
                 new_task = Task(post_id=post.id, bot_token=self.bot_token,
                                 tg_channel=self.tg_channel)
                 db.session.add(new_task)
-            db.commit()
+            db.session.commit()
 
             # success = False
             # while not success:

@@ -53,7 +53,7 @@ class Post:
     # _sticker = []
     # _pretty_cards = []
 
-    def __init__(self, input_json: dict):
+    def __init__(self, input_json: dict, from_db=False):
         self.photo = []
         self.text = ''
         self.audio = []
@@ -63,36 +63,47 @@ class Post:
                 int(input_json['date'])))
         except:
             self.date = input_json['date']
-        if input_json.get('text'):
-            self.text = input_json['text']
-        if input_json.get('marked_as_ads'):
-            self.marked_as_ads = True
-        if input_json.get('post_type'):
-            self.post_type = input_json['post_type']
-        if input_json.get('attachments'):
-            for attach in input_json['attachments']:
-                if attach['type'] == 'photo':
-                    biggest_size = 0
-                    url = ''
-                    for size in attach['photo']['sizes']:
-                        if size['height'] >= biggest_size:
-                            url = size['url']
-                    self.photo.append(url)
-                if attach['type'] == 'video':
-                    # cложная тема с аксес токенами
-                    pass
-                if attach['type'] == 'audio':
-                    a = {'artist': attach['audio']['artist'],
-                         'title': attach['audio']['title'],
-                         'url': attach['audio']['url']}
-                    self.audio.append(a)
 
-        # if not hasattr(self, 'text'):
-        #     self.text = None
-        # if not hasattr(self, 'photo'):
-        #     self.photo = None
-        # if not hasattr(self, 'audio'):
-        #     self.audio = None
+        if from_db:
+            if input_json.get('id'):
+                self.id = input_json['id']
+            if input_json.get('text'):
+                self.text = input_json['text']
+            if input_json.get('photo'):
+                self.photo = input_json['photo']
+            if input_json.get('audio'):
+                self.audio = input_json['audio']
+        else:
+            if input_json.get('text'):
+                self.text = input_json['text']
+            if input_json.get('marked_as_ads'):
+                self.marked_as_ads = True
+            if input_json.get('post_type'):
+                self.post_type = input_json['post_type']
+            if input_json.get('attachments'):
+                for attach in input_json['attachments']:
+                    if attach['type'] == 'photo':
+                        biggest_size = 0
+                        url = ''
+                        for size in attach['photo']['sizes']:
+                            if size['height'] >= biggest_size:
+                                url = size['url']
+                        self.photo.append(url)
+                    if attach['type'] == 'video':
+                        # cложная тема с аксес токенами
+                        pass
+                    if attach['type'] == 'audio':
+                        a = {'artist': attach['audio']['artist'],
+                             'title': attach['audio']['title'],
+                             'url': attach['audio']['url']}
+                        self.audio.append(a)
+
+            # if not hasattr(self, 'text'):
+            #     self.text = None
+            # if not hasattr(self, 'photo'):
+            #     self.photo = None
+            # if not hasattr(self, 'audio'):
+            #     self.audio = None
     def save(self):
         data_json = {'id': self.id, 'photo': self.photo, 'audio': self.audio,
                      'text': self.text, 'date': self.date}

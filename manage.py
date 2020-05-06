@@ -1,11 +1,11 @@
 import click
 from app import app, db
-from app.models import Post, VkPublic
+from app.models import Post, VkPublic, Task
 
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'Post': Post, 'VkPublic': VkPublic}
+    return {'db': db, 'Post': Post, 'VkPublic': VkPublic, 'Task': Task}
 
 
 @click.group()

@@ -20,11 +20,13 @@ def send_process():
                             .filter_by(internal_id=task_post.post_id)\
                             .first()
         parsed_json = json.loads(internal_post.data_json)
-        internal_post = PostClass(parsed_json)
+        # print(parsed_json)
+        internal_post = PostClass(parsed_json, from_db=True)
         success = False
         while not success:
             try:
                 print('start sending')
+                # print(internal_post.photo)
                 tg_api = TelegramSend(task_post.bot_token,
                                       task_post.tg_channel)
                 tg_api.send([internal_post])
@@ -70,8 +72,8 @@ def main_func():
         db.session.add(b)
         db.session.add(a)
         db.session.commit()
-        make_things_with_public(a)
         make_things_with_public(b)
+        make_things_with_public(a)
 
 
 @app.route('/healthcheck', methods=['GET', 'POST'])
@@ -103,5 +105,5 @@ def test_scheduler():
 scheduler = BackgroundScheduler()
 scheduler.add_job(test_scheduler, 'interval', seconds=900,
                   next_run_time=datetime.now())
-scheduler.add_job(send_process, 'interval', seconds=30)
+scheduler.add_job(send_process, 'interval', seconds=1)
 scheduler.start()

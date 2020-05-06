@@ -15,7 +15,9 @@ def send_process():
     unsend_posts = Task.query.filter_by(send=0).all()
     if unsend_posts:
         task_post = unsend_posts[0]
-        internal_post = Post.query.filter_by(id=task_post.post_id).first()
+        internal_post = Post.query\
+                            .filter_by(internal_id=task_post.post_id)\
+                            .first()
         internal_post = PostClass(internal_post.data_json)
         success = False
         while not success:

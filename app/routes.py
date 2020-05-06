@@ -105,5 +105,5 @@ def test_scheduler():
 scheduler = BackgroundScheduler()
 scheduler.add_job(test_scheduler, 'interval', seconds=300,
                   next_run_time=datetime.now())
-scheduler.add_job(send_process, 'interval', seconds=20)
+scheduler.add_job(send_process, 'interval', seconds=35)
 scheduler.start()

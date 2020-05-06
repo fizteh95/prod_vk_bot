@@ -33,7 +33,7 @@ class TelegramSend:
                 self.bot.send_message(self.tg_channel, post.text)
                 sleep(.05)
 
-            if (len(post.photo) > 1) and (len(post.photo) < 10):
+            if (len(post.photo) > 1) and (len(post.photo) <= 10):
 
                 medias = []
 

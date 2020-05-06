@@ -21,3 +21,14 @@ class Post(db.Model):
 
     def __repr__(self):
         return f'<Id {self.internal_id}>'
+
+
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    send = db.Column(db.Integer, default=0)
+    post_id = db.Column(db.Integer)
+    bot_token = db.Column(db.String(200))
+    tg_channel = db.Column(db.String(200))
+
+    def __repr__(self):
+        return f'<Id {self.post_id}>'

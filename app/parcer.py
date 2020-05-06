@@ -1,10 +1,10 @@
 
 import requests
 import datetime
-from collections import namedtuple
+# from collections import namedtuple
 from app.bot_sender import TelegramSend
-from app import app, db  # bot,
-from app.models import Post as PostModel, VkPublic
+from app import db  # bot, app
+from app.models import Post as PostModel, VkPublic, Task
 import json
 
 
@@ -100,8 +100,8 @@ class Post:
         db.session.add(a)
         db.session.commit()
 
-    def send(self, tg_api, tg_channel, bot_token):
-        tg_api.send([self])
+    # def send(self, tg_api, tg_channel, bot_token):
+    #     tg_api.send([self])
 
 
 class VK_public:
@@ -151,18 +151,23 @@ class VK_public:
                     new_posts.append(post)
         return new_posts
 
-    def send_new_posts(self, tg_api, posts: list):
+    def send_new_posts(self, posts: list):
         if posts:
             for post in posts:
-                success = False
-                while not success:
-                    try:
-                # print('start sending')
-                        tg_api = TelegramSend(self.bot_token, self.tg_channel)
-                        tg_api.send([post])
-                        success = True
-                    except Exception as e:
-                        print(e)
+                new_task = Task(post_id=post.id, bot_token=self.bot_token,
+                                tg_channel=self.tg_channel)
+                db.session.add(new_task)
+            db.commit()
+
+            # success = False
+            # while not success:
+            #     try:
+            #         print('start sending')
+            #         tg_api = TelegramSend(self.bot_token, self.tg_channel)
+            #         tg_api.send([post])
+            #         success = True
+            #     except Exception as e:
+            #         print(e)
         return len(posts)
 
 

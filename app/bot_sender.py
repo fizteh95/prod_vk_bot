@@ -6,7 +6,7 @@
 import telebot
 from time import sleep
 from telebot import types
-import telegram
+# import telegram
 # from telebot import apihelper
 
 
@@ -64,16 +64,17 @@ class TelegramSend:
 
 
                 # bot_message = bot.sendMediaGroup(self.tg_channel, media)
-                sleep(5)
-                print('one sleep')
-                sleep(5)
-                print('two sleep')
-                sleep(5)
-                print('three sleep')
-                sleep(5)
-                print('four sleep')
-                sleep(5)
-                print('five sleep')
+                sleep(.05)
+                # sleep(5)
+                # print('one sleep')
+                # sleep(5)
+                # print('two sleep')
+                # sleep(5)
+                # print('three sleep')
+                # sleep(5)
+                # print('four sleep')
+                # sleep(5)
+                # print('five sleep')
 
             if len(post.photo) == 1:
                 if post.text:

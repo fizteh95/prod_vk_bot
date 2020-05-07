@@ -15,26 +15,30 @@ import json
 def send_process():
     unsend_posts = Task.query.filter_by(send=0).all()
     if unsend_posts:
-        task_post = unsend_posts[0]
-        internal_post = Post.query\
-                            .filter_by(internal_id=task_post.post_id)\
-                            .first()
-        parsed_json = json.loads(internal_post.data_json)
-        # print(parsed_json)
-        internal_post = PostClass(parsed_json, from_db=True)
-        success = False
-        while not success:
-            try:
-                print('start sending')
-                # print(internal_post.photo)
-                tg_api = TelegramSend(task_post.bot_token,
-                                      task_post.tg_channel)
-                tg_api.send([internal_post])
-                success = True
-                task_post.send = 1
-                db.session.commit()
-            except Exception as e:
-                print(e)
+        # task_post = unsend_posts[0]
+        used_tokens = []
+        for task_post in unsend_posts:
+            if task_post.bot_token not in used_tokens:
+                internal_post = Post.query\
+                                    .filter_by(internal_id=task_post.post_id)\
+                                    .first()
+                parsed_json = json.loads(internal_post.data_json)
+                # print(parsed_json)
+                internal_post = PostClass(parsed_json, from_db=True)
+                success = False
+                while not success:
+                    try:
+                        print('start sending')
+                        # print(internal_post.photo)
+                        tg_api = TelegramSend(task_post.bot_token,
+                                              task_post.tg_channel)
+                        tg_api.send([internal_post])
+                        success = True
+                        task_post.send = 1
+                        db.session.commit()
+                    except Exception as e:
+                        print(e)
+                used_tokens.append(task_post.bot_token)
 
 
 def make_things_with_public(vk_pub):
@@ -53,25 +57,30 @@ def main_func():
     if len(vk_publics) > 1:
         for vk_public in vk_publics:
             make_things_with_public(vk_public)
-    elif len(vk_publics) == 1:
-        b = VkPublic(address='mayland',
-                     bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
-                     tg_channel='@vk_podslushano')
-        db.session.add(b)
-        db.session.commit()
-        vk_publics = VkPublic.query.all()
-        for vk_public in vk_publics:
-            make_things_with_public(vk_public)
+    # elif len(vk_publics) == 1:
+    #     b = VkPublic(address='mayland',
+    #                  bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+    #                  tg_channel='@vk_podslushano')
+    #     db.session.add(b)
+    #     db.session.commit()
+    #     vk_publics = VkPublic.query.all()
+    #     for vk_public in vk_publics:
+    #         make_things_with_public(vk_public)
     else:
         a = VkPublic(address='overhear',
                      bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
                      tg_channel='@vk_podslushano')
         b = VkPublic(address='mayland',
                      bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
-                     tg_channel='@vk_podslushano')
+                     tg_channel='@vk_mayland')
+        c = VkPublic(address='yebenya',
+                     bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+                     tg_channel='@vk_estetika_ebeney')
+        db.session.add(c)
         db.session.add(b)
         db.session.add(a)
         db.session.commit()
+        make_things_with_public(c)
         make_things_with_public(b)
         make_things_with_public(a)
 

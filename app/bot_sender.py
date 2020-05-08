@@ -84,10 +84,10 @@ class TelegramSend:
                     self.bot.send_photo(self.tg_channel, post.photo[0])
                 sleep(.05)
 
-            if post.audio:
-                for audio in post.audio:
-                    self.bot.send_audio(self.tg_channel, audio)
-                    sleep(.05)
+            # if post.audio:
+            #     for audio in post.audio:
+            #         self.bot.send_audio(self.tg_channel, audio)
+            #         sleep(.05)
 
         return True
 

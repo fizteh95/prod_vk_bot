@@ -27,17 +27,17 @@ def send_process():
                 internal_post = PostClass(parsed_json, from_db=True)
                 success = False
                 while not success:
-                    # try:
-                    print('start sending')
-                    # print(internal_post.photo)
-                    tg_api = TelegramSend(task_post.bot_token,
-                                          task_post.tg_channel)
-                    tg_api.send([internal_post])
-                    success = True
-                    task_post.send = 1
-                    db.session.commit()
-                    # except Exception as e:
-                    #     print(e)
+                    try:
+                        print('start sending')
+                        # print(internal_post.photo)
+                        tg_api = TelegramSend(task_post.bot_token,
+                                              task_post.tg_channel)
+                        tg_api.send([internal_post])
+                        success = True
+                        task_post.send = 1
+                        db.session.commit()
+                    except Exception as e:
+                        print(e)
                 used_tokens.append(task_post.bot_token)
 
 

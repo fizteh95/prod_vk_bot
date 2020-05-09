@@ -54,14 +54,14 @@ def make_things_with_public(vk_pub):
 
 def main_func():
     
-    p = Task.query.filter(tg_channel='@novostibyte').all()
+    p = Task.query.filter_by(tg_channel='@novostibyte').all()
 
     for pp in p:
         Post.query\
             .filter_by(internal_id=pp.post_id)\
             .delete()
-    Task.query.filter(tg_channel='@novostibyte').delete()
-    VkPublic.query.filter(address='collection9').delete()
+    Task.query.filter_by(tg_channel='@novostibyte').delete()
+    VkPublic.query.filter_by(address='collection9').delete()
     db.session.commit()
 
     vk_publics = VkPublic.query.all()

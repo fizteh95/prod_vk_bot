@@ -29,7 +29,7 @@ def send_process():
                 while not success:
                     try:
                         print('start sending')
-                        # print(internal_post.photo)
+                        # print(internal_post.audio)
                         tg_api = TelegramSend(task_post.bot_token,
                                               task_post.tg_channel)
                         tg_api.send([internal_post])
@@ -54,35 +54,36 @@ def make_things_with_public(vk_pub):
 
 def main_func():
     vk_publics = VkPublic.query.all()
+
     if len(vk_publics) > 1:
+
+        if 'collection9' not in [x.address for x in vk_publics]:
+            d = VkPublic(address='collection9',
+                         bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+                         tg_channel='@novostibyte')
+            db.session.add(d)
+            db.session.commit()
+            make_things_with_public(d)
+
         for vk_public in vk_publics:
             make_things_with_public(vk_public)
-    # elif len(vk_publics) == 1:
-    #     b = VkPublic(address='mayland',
-    #                  bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
-    #                  tg_channel='@vk_podslushano')
-    #     db.session.add(b)
-    #     db.session.commit()
-    #     vk_publics = VkPublic.query.all()
-    #     for vk_public in vk_publics:
-    #         make_things_with_public(vk_public)
     else:
-        a = VkPublic(address='overhear',
-                     bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
-                     tg_channel='@vk_podslushano')
-        b = VkPublic(address='mayland',
-                     bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
-                     tg_channel='@vk_mayland')
+        # a = VkPublic(address='overhear',
+        #              bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+        #              tg_channel='@vk_podslushano')
+        # b = VkPublic(address='mayland',
+        #              bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+        #              tg_channel='@vk_mayland')
         c = VkPublic(address='yebenya',
                      bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
                      tg_channel='@vk_estetika_ebeney')
         db.session.add(c)
-        db.session.add(b)
-        db.session.add(a)
+        # db.session.add(b)
+        # db.session.add(a)
         db.session.commit()
         make_things_with_public(c)
-        make_things_with_public(b)
-        make_things_with_public(a)
+        # make_things_with_public(b)
+        # make_things_with_public(a)
 
 
 @app.route('/healthcheck', methods=['GET', 'POST'])

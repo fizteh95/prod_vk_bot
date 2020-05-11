@@ -5,6 +5,7 @@ This Example will show you how to use register_next_step handler.
 
 import telebot
 from telebot import types
+from app import app
 
 API_TOKEN = '873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c'
 
@@ -83,4 +84,16 @@ bot.enable_save_next_step_handlers(delay=2)
 # WARNING It will work only if enable_save_next_step_handlers was called!
 bot.load_next_step_handlers()
 
-bot.polling()
+# bot.polling()
+
+@app.route('/' + TOKEN, methods=['POST'])
+def getMessage():
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "!", 200
+
+
+@app.route("/set_webhook")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://flask-svalkobot.herokuapp.com/' + TOKEN)
+    return "!", 200

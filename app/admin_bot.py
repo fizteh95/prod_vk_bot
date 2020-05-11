@@ -6,6 +6,8 @@ This Example will show you how to use register_next_step handler.
 import telebot
 from telebot import types
 from app import app
+from flask import request
+
 
 API_TOKEN = '873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c'
 

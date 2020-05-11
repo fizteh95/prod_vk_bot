@@ -86,7 +86,7 @@ bot.load_next_step_handlers()
 
 # bot.polling()
 
-@app.route('/' + TOKEN, methods=['POST'])
+@app.route('/' + API_TOKEN, methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "!", 200
@@ -95,5 +95,5 @@ def getMessage():
 @app.route("/set_webhook")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://flask-svalkobot.herokuapp.com/' + TOKEN)
+    bot.set_webhook(url='https://flask-svalkobot.herokuapp.com/' + API_TOKEN)
     return "!", 200

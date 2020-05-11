@@ -8,6 +8,7 @@ class VkPublic(db.Model):
     address = db.Column(db.String(200))
     bot_token = db.Column(db.String(200))
     tg_channel = db.Column(db.String(200))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return f'<Address {self.address}>'
@@ -32,3 +33,12 @@ class Task(db.Model):
 
     def __repr__(self):
         return f'<Id {self.post_id}>'
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    chat_id = db.Column(db.Integer)
+    publics = db.relationship('VkPublic', backref='author', lazy='dynamic')
+
+    def __repr__(self):
+        return f'<Chat {self.chat_id}>'

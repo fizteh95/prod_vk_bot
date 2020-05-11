@@ -11,7 +11,7 @@ API_TOKEN = '873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c'
 bot = telebot.TeleBot(API_TOKEN)
 
 user_dict = {}
-
+print('starting admin...')
 
 class User:
     def __init__(self, name):

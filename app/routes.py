@@ -12,10 +12,6 @@ from app.bot_sender import TelegramSend
 import json
 
 
-# start admin
-from app import admin_bot
-
-
 def send_process():
     unsend_posts = Task.query.filter_by(send=0).all()
     if unsend_posts:
@@ -133,3 +129,6 @@ scheduler.add_job(test_scheduler, 'interval', seconds=300,
                   next_run_time=datetime.now())
 scheduler.add_job(send_process, 'interval', seconds=35)
 scheduler.start()
+
+# start admin
+from app import admin_bot

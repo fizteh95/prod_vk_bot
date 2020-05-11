@@ -60,13 +60,13 @@ class TelegramSend:
                     self.bot.send_photo(self.tg_channel, post.photo[0])
                 sleep(.05)
 
-            try:
-                if post.audio:
-                    for audio in post.audio:
-                        self.bot.send_audio(self.tg_channel, audio.get('url'))
-                        sleep(.05)
-            except Exception as e:
-                print(e)
+            # try:
+            #     if post.audio:
+            #         for audio in post.audio:
+            #             self.bot.send_audio(self.tg_channel, audio.get('url'))
+            #             sleep(.05)
+            # except Exception as e:
+            #     print(e)
 
         return True
 

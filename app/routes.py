@@ -12,6 +12,10 @@ from app.bot_sender import TelegramSend
 import json
 
 
+# start admin
+from app import admin_bot
+
+
 def send_process():
     unsend_posts = Task.query.filter_by(send=0).all()
     if unsend_posts:
@@ -58,31 +62,32 @@ def main_func():
 
     if len(vk_publics) > 1:
 
-        if 'collection9' not in [x.address for x in vk_publics]:
-            d = VkPublic(address='collection9',
-                         bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
-                         tg_channel='@novostibyte')
-            db.session.add(d)
-            db.session.commit()
-            make_things_with_public(d)
+        # if 'collection9' not in [x.address for x in vk_publics]:
+        #     d = VkPublic(address='collection9',
+        #                  bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+        #                  tg_channel='@novostibyte')
+        #     db.session.add(d)
+        #     db.session.commit()
+        #     make_things_with_public(d)
 
         for vk_public in vk_publics:
             make_things_with_public(vk_public)
     else:
+        pass
         # a = VkPublic(address='overhear',
         #              bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
         #              tg_channel='@vk_podslushano')
         # b = VkPublic(address='mayland',
         #              bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
         #              tg_channel='@vk_mayland')
-        c = VkPublic(address='yebenya',
-                     bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
-                     tg_channel='@vk_estetika_ebeney')
-        db.session.add(c)
+        # c = VkPublic(address='yebenya',
+        #              bot_token='873231530:AAEHeyyyNICXFBpbc8FpHleGJjQgP-OC81c',
+        #              tg_channel='@vk_estetika_ebeney')
+        # db.session.add(c)
         # db.session.add(b)
         # db.session.add(a)
-        db.session.commit()
-        make_things_with_public(c)
+        # db.session.commit()
+        # make_things_with_public(c)
         # make_things_with_public(b)
         # make_things_with_public(a)
 

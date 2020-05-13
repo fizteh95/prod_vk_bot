@@ -10,6 +10,7 @@ from datetime import datetime
 from app.parcer import VK_public, Api, Post as PostClass
 from app.bot_sender import TelegramSend
 import json
+from time import sleep
 
 
 # start admin
@@ -41,6 +42,7 @@ def send_process():
                         task_post.send = 1
                         db.session.commit()
                     except Exception as e:
+                        sleep(1)
                         print(e)
                 used_tokens.append(task_post.bot_token)
 

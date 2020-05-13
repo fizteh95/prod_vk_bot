@@ -113,8 +113,9 @@ class Post:
             db.session.commit()
         except Exception as e:
             print(e)
-            data_json = {'id': self.id, 'photo': self.photo[:1], 'audio': self.audio,
-                         'text': self.text[:5000], 'date': self.date}
+            data_json = {'id': self.id, 'photo': self.photo[0], 'audio': self.audio,
+                         'text': self.text[:500], 'date': self.date}
+            print(data_json)
             a = PostModel(internal_id=self.id, data_json=json.dumps(data_json))
             db.session.add(a)
             db.session.commit()

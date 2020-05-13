@@ -105,11 +105,20 @@ class Post:
             # if not hasattr(self, 'audio'):
             #     self.audio = None
     def save(self):
-        data_json = {'id': self.id, 'photo': self.photo, 'audio': self.audio,
-                     'text': self.text, 'date': self.date}
-        a = PostModel(internal_id=self.id, data_json=json.dumps(data_json))
-        db.session.add(a)
-        db.session.commit()
+        try:
+            data_json = {'id': self.id, 'photo': self.photo, 'audio': self.audio,
+                         'text': self.text, 'date': self.date}
+            a = PostModel(internal_id=self.id, data_json=json.dumps(data_json))
+            db.session.add(a)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            data_json = {'id': self.id, 'photo': self.photo, 'audio': self.audio,
+                         'text': self.text[:5000], 'date': self.date}
+            a = PostModel(internal_id=self.id, data_json=json.dumps(data_json))
+            db.session.add(a)
+            db.session.commit()
+
 
     # def send(self, tg_api, tg_channel, bot_token):
     #     tg_api.send([self])

@@ -47,6 +47,8 @@ def send_process():
                         if count >= 10:
                             print(task_post.id)
                             success = True
+                            task_post.send = 1
+                            db.session.commit()
                         sleep(1)
                         print(e)
                 used_tokens.append(task_post.bot_token)

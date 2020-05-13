@@ -113,6 +113,7 @@ class Post:
             db.session.commit()
         except Exception as e:
             print(e)
+            db.session.rollback()
             data_json = {'id': self.id, 'photo': self.photo[0], 'audio': self.audio,
                          'text': self.text[:500], 'date': self.date}
             data_json=json.dumps(data_json)

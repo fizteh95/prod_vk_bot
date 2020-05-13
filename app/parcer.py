@@ -115,8 +115,9 @@ class Post:
             print(e)
             data_json = {'id': self.id, 'photo': self.photo[0], 'audio': self.audio,
                          'text': self.text[:500], 'date': self.date}
+            data_json=json.dumps(data_json)
             print(data_json)
-            a = PostModel(internal_id=self.id, data_json=json.dumps(data_json))
+            a = PostModel(internal_id=self.id, data_json=data_json)
             db.session.add(a)
             db.session.commit()
 
@@ -167,9 +168,12 @@ class VK_public:
         new_posts = []
         if unsaved_ids:
             for post in posts:
-                if post.id in unsaved_ids:
-                    post.save()
-                    new_posts.append(post)
+                try:
+                    if post.id in unsaved_ids:
+                        post.save()
+                        new_posts.append(post)
+                except:
+                    pass
         return new_posts
 
     def send_new_posts(self, posts: list):

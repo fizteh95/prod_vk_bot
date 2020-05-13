@@ -31,8 +31,8 @@ def send_process():
                 # print(parsed_json)
                 internal_post = PostClass(parsed_json, from_db=True)
                 success = False
+                count = 0
                 while not success:
-                    count = 0
                     try:
                         count += 1
                         print('start sending')

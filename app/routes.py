@@ -32,7 +32,9 @@ def send_process():
                 internal_post = PostClass(parsed_json, from_db=True)
                 success = False
                 while not success:
+                    count = 0
                     try:
+                        count += 1
                         print('start sending')
                         # print(internal_post.audio)
                         tg_api = TelegramSend(task_post.bot_token,
@@ -42,6 +44,9 @@ def send_process():
                         task_post.send = 1
                         db.session.commit()
                     except Exception as e:
+                        if count >= 10:
+                            print(task_post.id)
+                            success = True
                         sleep(1)
                         print(e)
                 used_tokens.append(task_post.bot_token)
